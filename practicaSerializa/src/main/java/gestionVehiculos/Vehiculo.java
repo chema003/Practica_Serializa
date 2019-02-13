@@ -53,8 +53,6 @@ public class Vehiculo implements Serializable{
 				"tiene como matrícula " + getMatricula() + ", y un depósito con capacidad de " +
 				getDeposito() + "litros.";
 	}
-	
-	
-	
+
 	
 }

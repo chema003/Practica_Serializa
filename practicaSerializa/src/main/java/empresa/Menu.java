@@ -24,7 +24,7 @@ import serializadores.SerializarCliente;
 public class Menu {
 
 	static String rutaJson = "datos/clientes.json";
-	
+	static Collection <Cliente> clientesEmpresa = new ArrayList<>();
 	public static void main(String[] args) {
 //		Json json = new Json();
 //		Collection <Cliente> clientesEmpresa = new ArrayList<>();
@@ -33,25 +33,28 @@ public class Menu {
 		Cliente cliente1 = new Cliente("11111111A", "nombre1", 911111111, "direcc1", 1000);
 		Cliente cliente2 = new Cliente("22222222B", "nombre2", 911111112, "direcc2", 2000);
 		anadirCliente(cliente1, gestor);
+		
 		anadirCliente(cliente2, gestor);
+		System.out.println(clientesEmpresa);
 	}
 	
 	public static void anadirCliente (Cliente c, GestorSerializador gestor) {
-		Collection<Cliente> clientesEmpresa = new ArrayList<>();
+//		Collection<Cliente> clientesEmpresa = gestor.getClientes(rutaJson);
 	
 		if(clientesEmpresa.isEmpty()) {
 			clientesEmpresa.add(c);
-			gestor.guardarListaClientesEnJson(clientesEmpresa, rutaJson);
+			gestor.guardarClienteEnJson(c, rutaJson);
 			
 		}else{
-//		clientesEmpresa = gestor.getClientes(rutaJson);
+		clientesEmpresa = gestor.getClientes(rutaJson);
 			
 			for (Cliente cliente : clientesEmpresa) {
+				System.out.println(clientesEmpresa);
 				if(cliente.getNIF().equals(c.getNIF())){
 					System.out.println("El cliente ya se encuentra entre los clientes de la empresa.");
 				}else {
 					clientesEmpresa.add(c);
-					gestor.guardarListaClientesEnJson(clientesEmpresa, rutaJson);
+					gestor.guardarClienteEnJson(c, rutaJson);
 					System.out.println("Cliente nuevo añadido.");
 				}
 			}
@@ -80,16 +83,14 @@ public class Menu {
 		return respuesta;
 	}
 	
-//	public static void listarClientes(String ruta) {
-////		Collection<Cliente> clientesEmpresa = new ArrayList<>();
-//		Json json = new Json();
-//		SerializarCliente sc = new SerializarCliente();
-//		json.setSerializer(Cliente.class, sc);
-//		String rutaJson = "datos/clientes.dat";
-//		for (Cliente cliente : clientesEmpresa) {
-//			System.out.println(sc.getCliente(rutaJson));
-//		}
-//	}
+	public static void listarClientes(String ruta, GestorSerializador gestor) {
+		
+		Collection<Cliente> clientesEmpresa = gestor.getClientes(ruta);
+
+		for (Cliente cliente : clientesEmpresa) {
+			System.out.println(gestor.getClientes(ruta));
+		}
+	}
 //	
 //	public static Cliente buscarCliente (String NIF, GestorSerializador gestor) {
 //		Collection<Cliente> clientesEmpresa = new ArrayList<>();

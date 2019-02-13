@@ -50,4 +50,18 @@ public class GestorSerializador {
 			e.printStackTrace();
 		}
 	}
+	
+	public void guardarClienteEnJson (Cliente cliente, String ruta) {
+		Json json = new Json();
+		json.setSerializer(Cliente.class, new SerializarCliente());
+		try(BufferedWriter writer = new BufferedWriter(
+				new OutputStreamWriter(new FileOutputStream(ruta, true), "UTF-8"))){
+				writer.append(json.toJson(cliente));
+				writer.newLine();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 }
